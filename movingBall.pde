@@ -2,6 +2,7 @@ Debug dbg;
 //Constant constant;
 Balls balls;
 Line line;
+Triangle triangle;
 int INITIAL_BALL_NUM = 5;
 int BALL_SIZE = 10;
 float[] BALL_GENERATE_REGION = { 100, 100, 300, 300 };
@@ -21,6 +22,7 @@ void setup() {
   balls.setSpeed(3.0);
   line = new Line(balls);
   //line = new LineDelayed(balls, 5);
+  triangle = new Triangle(balls, line);
   dbg = new Debug();
   dbg.registBalls(balls);
   dbg.registLine(line);
@@ -28,15 +30,15 @@ void setup() {
 
 void draw()
 {
-  background(0);
+  background(#999999);
   balls.move();
-  balls.move();
-  dbg.showBallAliveRegion(BALL_ALIVE_REGION, color(#00FFCC, 100));
-  dbg.showBallGenerateRegion(BALL_GENERATE_REGION, color(#FFFFCC, 100));
-  dbg.showDistance(color(#FF9999, 100));
-  dbg.showId(14, color(#FFFFFF), 10, -10);
-  stroke(#00FF00); noFill(); line.draw();
+  //dbg.showBallAliveRegion(BALL_ALIVE_REGION, color(#00FFCC, 100));
+  //dbg.showBallGenerateRegion(BALL_GENERATE_REGION, color(#FFFFCC, 100));
+  //dbg.showDistance(color(#FF9999, 100));
+  noStroke(); fill(color(#FF0000, 30)); triangle.draw();
+  stroke(#CCCCCC); noFill(); line.draw();
   stroke(#FFFFFF); fill(#000000); balls.draw();
+  dbg.showId(14, color(#FFFFFF), 10, -10);
   //output.println(mouseX + "t" + mouseY); // Write the coordinate to the file
 }
 

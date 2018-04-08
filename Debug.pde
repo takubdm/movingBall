@@ -17,6 +17,32 @@ public class Debug
   {
     this.line = line;
   }
+  public void dumpTriangle()
+  {
+    ArrayList<int[]> triConnection = triangle.getTriConnection();
+    for (int[] t : triConnection)
+    {
+      System.out.println(t[0] + ", " + t[1] + ", " + t[2]);
+    }
+    System.out.println();
+  }
+  public void dumpConnection()
+  {
+    ArrayList connections = line.getConnection();
+    int startSize = connections.size();
+    for (int s = 0; s < startSize; s++)
+    {
+      int startId = s;
+      ArrayList connection = (ArrayList)connections.get(s);
+      int endSize = connection.size(); 
+      for (int e = 0; e < endSize; e++)
+      {
+        int endId = (int)connection.get(e);
+        System.out.println(startId + ", " + endId);
+      }
+    }
+    System.out.println();
+  }
   public void showId(float tSize, color tColor, float offsetX, float offsetY)
   {
     if (!isEnabled) return;
@@ -98,7 +124,13 @@ public class Debug
     }
     switch(k)
     {
-      case 'p':
+      case 'c':
+        dumpConnection();
+        break;
+      case 't':
+        dumpTriangle();
+        break;
+      case ENTER:
         start();
         break;
       case 'g':
@@ -107,6 +139,8 @@ public class Debug
         break;
       case 'r':
         balls.reset(); 
+        line.reset();
+        triangle.reset();
         redraw(); 
         break;
       case ' ':
