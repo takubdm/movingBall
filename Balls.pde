@@ -1,0 +1,101 @@
+import java.util.ConcurrentModificationException;
+
+public class Balls
+{
+  private ArrayList<Ball> balls = new ArrayList<Ball>();
+  private float[] ballAliveRegion = new float[4];
+  private float[] ballGenerateRegion = new float[4];
+  private int initialBallNum;
+  private float ballSize;
+  public Balls(float ballSize)
+  {
+    this.ballSize = ballSize;
+  }
+  public void setGenerateRegion(float[] ballGenerateRegion)
+  {
+    this.ballGenerateRegion = ballGenerateRegion;
+  }
+  public void setAliveRegion(float[] ballAliveRegion)
+  {
+    this.ballAliveRegion = ballAliveRegion;
+  }
+  public void initialGenerate(int num)
+  {
+    initialBallNum = num;
+    for (int i=0; i<num; i++)
+    {
+      generate();
+    }
+  }
+  public void reset()
+  {
+    balls.clear();
+    initialGenerate(initialBallNum);
+  }
+  public ArrayList<Ball> getBalls()
+  {
+    return balls;
+  }
+  public void draw() throws ConcurrentModificationException
+  {
+    try
+    {
+      ellipseMode(CENTER);
+      for(Ball b : balls)
+      {
+        b.draw();
+        if (!isAlive(b))
+        {
+            balls.remove(b);
+            generate();
+        }
+      }
+    }
+    catch(ConcurrentModificationException cme)
+    {
+    }
+  }
+  public void move()
+  {
+    move(1);
+  }
+  public void move(float axl)
+  {
+    for(Ball b : balls)
+    {
+      b.move(axl);
+    }
+  }
+  private boolean isAlive(Ball b)
+  {
+    boolean isAlive = true;
+    float arx1 = ballAliveRegion[0];
+    float ary1 = ballAliveRegion[1];
+    float arx2 = ballAliveRegion[2];
+    float ary2 = ballAliveRegion[3];
+    Map<String, Float> ballPosition = b.getPosition();
+    float bx = ballPosition.get("x");
+    float by = ballPosition.get("y");
+    boolean isInsideX = (bx >= arx1 && bx <= arx2); 
+    boolean isInsideY = (by >= ary1 && by <= ary2); 
+    if (!isInsideX || !isInsideY)
+    {
+      isAlive = false;
+    }
+    return isAlive;
+  }
+  public void generate()
+  {
+    float x1 = ballGenerateRegion[0];
+    float y1 = ballGenerateRegion[1];
+    float x2 = ballGenerateRegion[2];
+    float y2 = ballGenerateRegion[3];
+    float x = random(x1, x2);
+    float y = random(y1, y2);
+    //Ball b = new Ball(ballSize);
+    Ball b = new BallBounce(ballSize, ballAliveRegion);
+    b.setPosition(x, y);
+    b.setAcceralation(random(-1, 1), random(-1, 1));
+    balls.add(b);
+  }
+} 
