@@ -18,6 +18,20 @@ public class Debug
   {
     this.line = line;
   }
+  public void showId(float tSize, color tColor, float offsetX, float offsetY)
+  {
+    if (!isEnabled) return;
+    ArrayList<Ball> ballList = balls.getBalls();
+    fill(tColor);
+    for(Ball b : ballList)
+    {
+      Map<String, Float> ballPosition = b.getPosition();
+      float bx = ballPosition.get("x");
+      float by = ballPosition.get("y");
+      textSize(tSize);
+      text(b.getId(), bx + offsetX, by + offsetY); 
+    }
+  }
   public void showDistance(color c)
   {
     if (!isEnabled) return;
@@ -76,7 +90,7 @@ public class Debug
     }
     switch(k)
     {
-      case 'f':
+      case 'p':
         toggleLoop(); break;
       case 'g':
         balls.generate(); break;

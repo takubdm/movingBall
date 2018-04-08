@@ -3,13 +3,15 @@ import java.util.Map;
 
 public class Ball
 {
+  private int id;
   private float x;
   private float y;
   private float ax;
   private float ay;
   private float ballSize;
-  public Ball(float ballSize)
+  public Ball(int id, float ballSize)
   {
+    this.id = id;
     this.ballSize = ballSize;
   }
   public Map<String, Float> getPosition()
@@ -17,8 +19,8 @@ public class Ball
     return new HashMap<String, Float>()
     {
       {
-          put("x", x);
-          put("y", y);
+        put("x", x);
+        put("y", y);
       }
     };
   }
@@ -40,5 +42,9 @@ public class Ball
   {
     this.x += ax * axl;
     this.y += ay * axl;
+  }
+  public int getId()
+  {
+    return id;
   }
 } 

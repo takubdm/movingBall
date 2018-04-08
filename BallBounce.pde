@@ -1,9 +1,9 @@
 public class BallBounce extends Ball
 {
   float[] ballAliveRegion;
-  public BallBounce(float ballSize, float[] ballAliveRegion)
+  public BallBounce(int id, float ballSize, float[] ballAliveRegion)
   {
-    super(ballSize);
+    super(id, ballSize);
     this.ballAliveRegion = ballAliveRegion;
   }
   public void move(float axl)

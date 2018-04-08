@@ -7,6 +7,7 @@ public class Balls
   private float[] ballGenerateRegion = new float[4];
   private int initialBallNum;
   private float ballSize;
+  private int id = 0;
   public Balls(float ballSize)
   {
     this.ballSize = ballSize;
@@ -30,6 +31,7 @@ public class Balls
   public void reset()
   {
     balls.clear();
+    id = 0;
     initialGenerate(initialBallNum);
   }
   public ArrayList<Ball> getBalls()
@@ -93,7 +95,7 @@ public class Balls
     float x = random(x1, x2);
     float y = random(y1, y2);
     //Ball b = new Ball(ballSize);
-    Ball b = new BallBounce(ballSize, ballAliveRegion);
+    Ball b = new BallBounce(id++, ballSize, ballAliveRegion);
     b.setPosition(x, y);
     b.setAcceralation(random(-1, 1), random(-1, 1));
     balls.add(b);

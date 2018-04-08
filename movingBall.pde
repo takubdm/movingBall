@@ -32,6 +32,7 @@ void draw()
   dbg.showBallAliveRegion(BALL_ALIVE_REGION, color(#00FFCC, 100));
   dbg.showBallGenerateRegion(BALL_GENERATE_REGION, color(#FFFFCC, 100));
   dbg.showDistance(color(#FF9999, 100));
+  dbg.showId(14, color(#FFFFFF), 10, -10);
   stroke(#00FF00); noFill(); line.draw();
   stroke(#FFFFFF); fill(#000000); balls.draw();
   //output.println(mouseX + "t" + mouseY); // Write the coordinate to the file
