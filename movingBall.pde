@@ -6,7 +6,7 @@ Triangle triangle;
 int INITIAL_BALL_NUM = 5;
 int BALL_SIZE = 10;
 float[] BALL_GENERATE_REGION = { 100, 100, 300, 300 };
-float[] BALL_ALIVE_REGION = { 50, 50, 600, 400 };
+float[] BALL_ALIVE_REGION = { 0, 0, 800, 600 };
 PrintWriter output;
 
 void setup() {
@@ -30,18 +30,32 @@ void setup() {
 
 void draw()
 {
-  background(#999999);
+  background(#222222);
   balls.move();
   //dbg.showBallAliveRegion(BALL_ALIVE_REGION, color(#00FFCC, 100));
   //dbg.showBallGenerateRegion(BALL_GENERATE_REGION, color(#FFFFCC, 100));
   //dbg.showDistance(color(#FF9999, 100));
-  noStroke(); fill(color(#FF0000, 30)); triangle.draw();
-  stroke(#CCCCCC); noFill(); line.draw();
-  stroke(#FFFFFF); fill(#000000); balls.draw();
   dbg.showId(14, color(#FFFFFF), 10, -10);
+  stroke(#CCCCCC); noFill(); line.draw();
+  noStroke(); fill(color(#999999, 50)); triangle.draw();
+  stroke(#FFFFFF); fill(#000000); balls.draw();
   //output.println(mouseX + "t" + mouseY); // Write the coordinate to the file
 }
-
+void mousePressed()
+{
+  switch(mouseButton)
+  {
+    case LEFT:
+      balls.generate(); 
+      break;
+    case RIGHT:
+      balls.reset(); 
+      line.reset();
+      triangle.reset();
+      redraw();
+      break;
+  }
+}
 void keyPressed()
 {
   dbg.keyPressed(key);

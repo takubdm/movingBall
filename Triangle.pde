@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Triangle
 {
   private Balls balls;
@@ -18,13 +20,15 @@ public class Triangle
   }
   public void draw()
   {
-    ArrayList<Ball> ballList = balls.getBalls(); 
     checkConnection();
     for (int[] tc : triConnection)
     {
-      Ball b1 = ballList.get(tc[0]);
-      Ball b2 = ballList.get(tc[1]);
-      Ball b3 = ballList.get(tc[2]);
+      int id1 = tc[0];
+      int id2 = tc[1];
+      int id3 = tc[2];
+      Ball b1 = balls.getBall(id1);
+      Ball b2 = balls.getBall(id2);
+      Ball b3 = balls.getBall(id3);
       Map<String, Float> bp1 = b1.getPosition();
       Map<String, Float> bp2 = b2.getPosition();
       Map<String, Float> bp3 = b3.getPosition();
@@ -40,28 +44,29 @@ public class Triangle
   public void checkConnection()
   {
     triConnection.clear();
-    ArrayList connections = line.getConnection();
+    Map<String, ArrayList> connections = line.getConnection();
     if (connections.size() < 3) return;
     int lastId = line.getLastConnectedId();
-    int startSize = connections.size();
-    for (int s = 0; s < startSize; s++)
+    
+    Set<String> con = connections.keySet();
+    for (Iterator<String> n = con.iterator(); n.hasNext();)
     {
-      int startId = s;
-      ArrayList connectionSM = (ArrayList)connections.get(s);
+      String startId = n.next();
+      ArrayList connectionSM = (ArrayList)connections.get(startId);
       int middleSize = connectionSM.size();
       if (middleSize < 2) continue;
       for (int m = 0; m < middleSize; m++)
       {
         int middleId = (int)connectionSM.get(m);
         if (middleId == lastId) continue;
-        ArrayList connectionME = (ArrayList)connections.get(middleId);
+        ArrayList connectionME = (ArrayList)connections.get(String.valueOf(middleId));
         int endSize = connectionME.size();
         for (int e = 0; e < endSize; e++)
         {
           int endId = (int)connectionME.get(e);
           if (connectionSM.indexOf(endId) > -1)
           {
-            int[] nodeIds = { startId, middleId, endId };
+            int[] nodeIds = { Integer.parseInt(startId), middleId, endId };
             triConnection.add(nodeIds);
           }
         }

@@ -20,6 +20,7 @@ public class Debug
   public void dumpTriangle()
   {
     ArrayList<int[]> triConnection = triangle.getTriConnection();
+    System.out.println("=== Triangle ===");
     for (int[] t : triConnection)
     {
       System.out.println(t[0] + ", " + t[1] + ", " + t[2]);
@@ -28,12 +29,13 @@ public class Debug
   }
   public void dumpConnection()
   {
-    ArrayList connections = line.getConnection();
-    int startSize = connections.size();
-    for (int s = 0; s < startSize; s++)
+    Map<String, ArrayList> connections = line.getConnection();
+    Set<String> con = connections.keySet();
+    System.out.println("=== Line ===");
+    for (Iterator<String> n = con.iterator(); n.hasNext();)
     {
-      int startId = s;
-      ArrayList connection = (ArrayList)connections.get(s);
+      String startId = n.next();
+      ArrayList connection = (ArrayList)connections.get(startId);
       int endSize = connection.size(); 
       for (int e = 0; e < endSize; e++)
       {
@@ -115,6 +117,28 @@ public class Debug
     balls.suspend(true);
     noLoop();
   }
+  private void generateBall()
+  {
+    balls.generate(); 
+    System.out.println("Ball has generated. Current balls: " + balls.getNum());
+    System.out.println();
+    refresh();
+  }
+  private void reset()
+  {
+    System.out.println("=== RESET ===");
+    System.out.println();
+    balls.reset(); 
+    line.reset();
+    triangle.reset();
+    redraw(); 
+  }
+  private void fbfPlayback()
+  {
+    stop();
+    balls.suspend(false);
+    redraw(); 
+  }
   public void keyPressed(char k)
   {
     if (k == 'd')
@@ -125,29 +149,17 @@ public class Debug
     switch(k)
     {
       case 'c':
-        dumpConnection();
-        break;
+        dumpConnection(); break;
       case 't':
-        dumpTriangle();
-        break;
+        dumpTriangle(); break;
       case ENTER:
-        start();
-        break;
+        start(); break;
       case 'g':
-        balls.generate(); 
-        refresh();
-        break;
+        generateBall(); break;
       case 'r':
-        balls.reset(); 
-        line.reset();
-        triangle.reset();
-        redraw(); 
-        break;
+        reset(); break;
       case ' ':
-        stop();
-        balls.suspend(false);
-        redraw(); 
-        break;
+        fbfPlayback(); break;
     }
   }
 } 

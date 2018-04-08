@@ -14,8 +14,8 @@ public class BallBounce extends Ball
     float ary2 = ballAliveRegion[3];
     float nextX = super.x + super.ax * axl;
     float nextY = super.y + super.ay * axl;
-    boolean isInsideX = (nextX >= arx1 && nextX <= arx2);
-    boolean isInsideY = (nextY >= ary1 && nextY <= ary2);
+    boolean isInsideX = (nextX >= arx1 + super.ballSize / 2 && nextX <= arx2 - super.ballSize / 2);
+    boolean isInsideY = (nextY >= ary1 + super.ballSize / 2 && nextY <= ary2 - super.ballSize / 2);
     if (!isInsideX) super.ax *= -1;
     if (!isInsideY) super.ay *= -1;
     super.x += super.ax * axl;
