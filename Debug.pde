@@ -8,7 +8,6 @@ public class Debug
   private boolean isLoop = true;
   public Debug()
   {
-    toggleLoop();
   }
   public void registBalls(Balls balls)
   {
@@ -70,34 +69,51 @@ public class Debug
     fill(c);
     rect(x1, y1, x2 - x1, y2 - y1);
   }
-  public void toggleLoop()
+  private void refresh()
   {
-    if (isLoop)
+    if (!isLoop)
     {
-      noLoop();
+      balls.suspend(true);
+      redraw(); 
     }
-    else
-    {
-      loop();
-    }
-    isLoop = !isLoop;
+  }
+  private void start()
+  {
+    isLoop = true;
+    balls.suspend(false);
+    loop();
+  }
+  private void stop()
+  {
+    isLoop = false;
+    balls.suspend(true);
+    noLoop();
   }
   public void keyPressed(char k)
   {
     if (k == 'd')
     {
       isEnabled = !isEnabled;
+      refresh();
     }
     switch(k)
     {
       case 'p':
-        toggleLoop(); break;
+        start();
+        break;
       case 'g':
-        balls.generate(); break;
+        balls.generate(); 
+        refresh();
+        break;
       case 'r':
-        balls.reset(); break;
+        balls.reset(); 
+        redraw(); 
+        break;
       case ' ':
-        redraw(); break;
+        stop();
+        balls.suspend(false);
+        redraw(); 
+        break;
     }
   }
 } 

@@ -8,6 +8,7 @@ public class Balls
   private int initialBallNum;
   private float ballSize;
   private int id = 0;
+  private float speed, speedOriginal;
   public Balls(float ballSize)
   {
     this.ballSize = ballSize;
@@ -57,15 +58,27 @@ public class Balls
     {
     }
   }
-  public void move()
+  public void setSpeed(float speed)
   {
-    move(1);
+    this.speed = speed;
+    speedOriginal = speed;
   }
-  public void move(float axl)
+  public void suspend(boolean suspend)
+  {
+    if (suspend)
+    {
+      speed = 0;
+    }
+    else
+    {
+      speed = speedOriginal;
+    }
+  }
+  public void move()
   {
     for(Ball b : balls)
     {
-      b.move(axl);
+      b.move(speed);
     }
   }
   private boolean isAlive(Ball b)

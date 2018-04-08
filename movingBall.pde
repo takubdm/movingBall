@@ -18,6 +18,7 @@ void setup() {
   balls.setGenerateRegion(BALL_GENERATE_REGION);
   balls.setAliveRegion(BALL_ALIVE_REGION);
   balls.initialGenerate(INITIAL_BALL_NUM);
+  balls.setSpeed(3.0);
   line = new Line(balls);
   //line = new LineDelayed(balls, 5);
   dbg = new Debug();
@@ -28,7 +29,8 @@ void setup() {
 void draw()
 {
   background(0);
-  balls.move(5);
+  balls.move();
+  balls.move();
   dbg.showBallAliveRegion(BALL_ALIVE_REGION, color(#00FFCC, 100));
   dbg.showBallGenerateRegion(BALL_GENERATE_REGION, color(#FFFFCC, 100));
   dbg.showDistance(color(#FF9999, 100));
