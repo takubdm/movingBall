@@ -36,9 +36,9 @@ void draw()
   //dbg.showBallGenerateRegion(BALL_GENERATE_REGION, color(#FFFFCC, 100));
   //dbg.showDistance(color(#FF9999, 100));
   dbg.showId(14, color(#FFFFFF), 10, -10);
-  stroke(#CCCCCC); noFill(); line.draw();
-  noStroke(); fill(color(#999999, 50)); triangle.draw();
-  stroke(#FFFFFF); fill(#000000); balls.draw();
+  stroke(#CCCCCC); noStroke(); noFill(); line.draw();
+  noStroke(); stroke(#CCCCCC); fill(color(#999999, 50)); triangle.draw();
+  stroke(#FFFFFF); fill(#000000); noStroke(); noFill(); balls.draw();
   //output.println(mouseX + "t" + mouseY); // Write the coordinate to the file
 }
 void mousePressed()

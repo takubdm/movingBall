@@ -123,8 +123,10 @@ public class Balls
     float y2 = ballGenerateRegion[3];
     float x = random(x1, x2);
     float y = random(y1, y2);
-    Ball b = new Ball(id++, ballSize);
+    //Ball b = new Ball(id++, ballSize);
     //Ball b = new BallBounce(id++, ballSize, ballAliveRegion);
+    //Ball b = new BallRandomWalk(id++, ballSize, ballAliveRegion);
+    Ball b = new BallCurve(id++, ballSize, ballAliveRegion);
     b.setPosition(x, y);
     b.setAcceralation(random(-1, 1), random(-1, 1));
     balls.add(b);
